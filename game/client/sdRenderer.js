@@ -172,9 +172,9 @@ class sdRenderer
 						sdAtlasMaterial.UpdateDotsScale();
 					}
 
-					//sdRenderer.sky_gradient = sdRenderer.ctx.createLinearGradient( 0, 0, 0, sdRenderer.screen_height );
-					//sdRenderer.sky_gradient.addColorStop( 0, '#ff4444' );
-					//sdRenderer.sky_gradient.addColorStop( 1, '#555555' );
+					sdRenderer.sky_gradient = sdRenderer.ctx.createLinearGradient( 0, 0, 0, sdRenderer.screen_height );
+					sdRenderer.sky_gradient.addColorStop( 0, '#330000' );
+					sdRenderer.sky_gradient.addColorStop( 1, '#440000' );
 				}
 				
 				globalThis.startupScreenOnResize();
@@ -1022,7 +1022,7 @@ class sdRenderer
 					
 					ctx.globalAlpha = 1; // Just in case
 					
-					//ctx.sd_hue_rotation = ( sdWorld.mod( sdWorld.camera.x / 16, 360 ) ); // retarded lgbtq sky shit
+					//ctx.sd_hue_rotation = ( sdWorld.mod( sdWorld.camera.x / 16, 360 ) ); 
 					
 					if ( yy < sdRenderer.screen_height )
 					{
@@ -1060,7 +1060,7 @@ class sdRenderer
 					}
 					
 					//ctx.sd_hue_rotation = 1;
-					//ctx.sd_hue_rotation = ( sdWorld.mod( sdWorld.camera.x * 0.8 / 16, 360 ) ); // retarded lgbtq sky shit
+					//ctx.sd_hue_rotation = ( sdWorld.mod( sdWorld.camera.x * 0.8 / 16, 360 ) ); 
 					
 					let brightness = 3 / sdRenderer.dark_lands_colors.length;
 					
@@ -1070,7 +1070,7 @@ class sdRenderer
 					brightness += sdWeather.only_instance._dustiness * 6 / sdRenderer.dark_lands_colors.length;
 					
 					ctx.globalAlpha = Math.min( 0.99, ( Math.cos( day_progress ) * 0.5 + 0.5 ) * brightness );
-					ctx.fillStyle = "#440000";
+					ctx.fillStyle = sdRenderer.sky_gradient;
 					ctx.fillRect( 0, 0, sdRenderer.screen_width, sdRenderer.screen_height );
 					
 					if ( i === sdRenderer.dark_lands_colors.length - 1 )
@@ -1918,7 +1918,7 @@ class sdRenderer
 			ctx.sd_hue_rotation = ( sdWorld.mod( sdWorld.camera.x * 0.8 / 16, 360 ) );
 
 			ctx.globalAlpha = sdWeather.only_instance._dustiness * 0.5;
-			ctx.fillStyle = "#440000"
+			ctx.fillStyle = sdRenderer.sky_gradient;
 			ctx.fillRect( 0, 0, sdRenderer.screen_width, sdRenderer.screen_height );
 
 			ctx.sd_hue_rotation = 0;
