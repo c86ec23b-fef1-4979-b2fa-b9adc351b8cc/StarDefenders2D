@@ -172,9 +172,9 @@ class sdRenderer
 						sdAtlasMaterial.UpdateDotsScale();
 					}
 
-					sdRenderer.sky_gradient = sdRenderer.ctx.createLinearGradient( 0, 0, 0, sdRenderer.screen_height );
-					sdRenderer.sky_gradient.addColorStop( 0, '#7b3219' );
-					sdRenderer.sky_gradient.addColorStop( 1, '#b75455' );
+					//sdRenderer.sky_gradient = sdRenderer.ctx.createLinearGradient( 0, 0, 0, sdRenderer.screen_height );
+					//sdRenderer.sky_gradient.addColorStop( 0, '#ff4444' );
+					//sdRenderer.sky_gradient.addColorStop( 1, '#555555' );
 				}
 				
 				globalThis.startupScreenOnResize();
@@ -462,16 +462,7 @@ class sdRenderer
 		
 		sdRenderer.dark_lands_canvases = [];
 		sdRenderer.dark_lands_canvases_fill = [];
-		sdRenderer.dark_lands_colors = [
-			'#050203',
-			'#0b0507',
-			'#12070a',
-			'#1a090d',
-			'#250c12',
-			'#2d0e14',
-			'#40131c',
-			'#5a1b27'
-		];
+		sdRenderer.dark_lands_colors = ['#000000', '#000000', '#000000', '#111111', '#222222', '#333333', '#444444', '#555555']
 		sdRenderer.dark_lands_width = 800;
 		
 		sdRenderer.visibility_falloff = 64; // 
@@ -1031,7 +1022,7 @@ class sdRenderer
 					
 					ctx.globalAlpha = 1; // Just in case
 					
-					ctx.sd_hue_rotation = ( sdWorld.mod( sdWorld.camera.x / 16, 360 ) );
+					//ctx.sd_hue_rotation = ( sdWorld.mod( sdWorld.camera.x / 16, 360 ) ); // retarded lgbtq sky shit
 					
 					if ( yy < sdRenderer.screen_height )
 					{
@@ -1069,7 +1060,7 @@ class sdRenderer
 					}
 					
 					//ctx.sd_hue_rotation = 1;
-					ctx.sd_hue_rotation = ( sdWorld.mod( sdWorld.camera.x * 0.8 / 16, 360 ) );
+					//ctx.sd_hue_rotation = ( sdWorld.mod( sdWorld.camera.x * 0.8 / 16, 360 ) ); // retarded lgbtq sky shit
 					
 					let brightness = 3 / sdRenderer.dark_lands_colors.length;
 					
@@ -1079,7 +1070,7 @@ class sdRenderer
 					brightness += sdWeather.only_instance._dustiness * 6 / sdRenderer.dark_lands_colors.length;
 					
 					ctx.globalAlpha = Math.min( 0.99, ( Math.cos( day_progress ) * 0.5 + 0.5 ) * brightness );
-					ctx.fillStyle = sdRenderer.sky_gradient;
+					ctx.fillStyle = "#440000";
 					ctx.fillRect( 0, 0, sdRenderer.screen_width, sdRenderer.screen_height );
 					
 					if ( i === sdRenderer.dark_lands_colors.length - 1 )
@@ -1927,7 +1918,7 @@ class sdRenderer
 			ctx.sd_hue_rotation = ( sdWorld.mod( sdWorld.camera.x * 0.8 / 16, 360 ) );
 
 			ctx.globalAlpha = sdWeather.only_instance._dustiness * 0.5;
-			ctx.fillStyle = sdRenderer.sky_gradient;
+			ctx.fillStyle = "#440000"
 			ctx.fillRect( 0, 0, sdRenderer.screen_width, sdRenderer.screen_height );
 
 			ctx.sd_hue_rotation = 0;
