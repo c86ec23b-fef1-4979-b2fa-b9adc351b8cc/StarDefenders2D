@@ -703,7 +703,7 @@ class sdStorage extends sdEntity
 							name = ( 'Cryo-substance barrel' );
 							else
 							if ( from_entity.type === sdJunk.TYPE_FIRE_BARREL )
-							name = ( 'Flammable-substance barrel' );
+							name = ( 'Fuel barrel' );
                             if ( from_entity.type === sdJunk.TYPE_TOXIC_BARREL )
 							name = ( 'Toxic gas barrel' );
 							else
