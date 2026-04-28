@@ -100,7 +100,7 @@ class sdWater extends sdEntity
         if ( this.type === sdWater.TYPE_CRYO )
 		return 'Cryo liquid';
         if ( this.type === sdWater.TYPE_INCENDIARY )
-		return 'Incendiary liquid';
+		return 'Fuel';
 	
 		return 'Liquid ' + this.type;
 	}
