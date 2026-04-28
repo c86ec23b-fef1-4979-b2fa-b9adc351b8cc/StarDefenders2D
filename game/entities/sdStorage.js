@@ -1094,7 +1094,7 @@ class sdStorage extends sdEntity
 					this.AddContextOption( 'Disarm', 'DISARM', [ ], true, { color: '#ffff00' } );
 				}
 
-                this.AddPromptContextOption( 'Set nickname', 'RENAME', [ undefined ], 'Enter nickname', '', 32 );
+                this.AddPromptContextOption( 'Set label', 'RENAME', [ undefined ], 'Enter label', '', 32 );
 			}
 		}
 	}
