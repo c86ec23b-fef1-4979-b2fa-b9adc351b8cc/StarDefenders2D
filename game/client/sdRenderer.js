@@ -799,6 +799,37 @@ class sdRenderer
 		//else
 		//sdRenderer.canvas.style.cursor = '';
 	}
+    static DrawUIBar( ctx, x, y, v1, v2, color = "#ff0000", width, height, name, display_value = true ) {
+        const padding = 5;
+        const padding_name = width * 0.2;
+
+        // background
+        ctx.globalAlpha = 0.5;
+        ctx.fillStyle = '#000000';
+        ctx.textAlign = 'center';
+        ctx.fillRect( x - ( name ? padding_name : 0 ), y, width + ( name ? padding_name : 0 ) + ( display_value ? padding_name / 2 : 0 ), height );
+
+        // bar
+        const fill = sdWorld.limit( 0, 1, v1 / v2 );
+
+        ctx.globalAlpha = 0.8;
+        ctx.fillStyle = color;
+
+        ctx.fillRect(
+            x + padding,
+            y + padding,
+            ( width - padding * 2 ) * fill,
+            height - padding * 2
+        );
+
+        if ( name )
+        ctx.fillText( T( name ), x - padding_name / 2.75, y + padding + height / 2 );
+
+        if ( display_value )
+        ctx.fillText( Math.ceil( v1 ), x + width + padding_name / 4, y + padding + height / 2 );
+
+        ctx.globalAlpha = 1;
+    }
 	static GetVisibleEntities()
 	{
 		return ( sdWorld.is_singleplayer ? sdRenderer.single_player_visibles_array : sdEntity.entities );
@@ -1975,9 +2006,9 @@ for ( let i = 0; i < visible_entities.length; i++ )
 			
 			ctx.font = 11*scale + "px Verdana";
 			
-			ctx.globalAlpha = 0.5;
+            ctx.globalAlpha = 0.5;
 			ctx.fillStyle = '#000000';
-			ctx.fillRect( 5, 5, 445 * scale, 17 );
+			//ctx.fillRect( 5, 5, 445 * scale, 17 );
 			
 			
 			if ( sdRenderer.show_leader_board === 1 || sdRenderer.show_leader_board === 2 )
@@ -2004,13 +2035,13 @@ for ( let i = 0; i < visible_entities.length; i++ )
 						}
 
 						ctx.fillStyle = '#000000';
-						ctx.fillRect( 5 + t * 35, 5 + 17 + 5, 30, 17 );
+						ctx.fillRect( 5 + t * 35, 20 + 17 + 10, 30, 17 );
 
 						ctx.globalAlpha = ( sdWorld.my_entity && i === sdWorld.my_entity.gun_slot ) ? 1 : 0.5;
 
 						ctx.fillStyle = '#ffffff';
 						ctx.textAlign = 'center';
-						ctx.fillText( i + '', 5 + t * 35 + 30 / 2, 5 + 17 + 5 + 12 );
+						ctx.fillText( i + '', 5 + t * 35 + 30 / 2, 20 + 17 + 10 + 12 );
 
 						if ( sdWorld.my_entity && i === sdWorld.my_entity.gun_slot )
 						{
@@ -2025,7 +2056,7 @@ for ( let i = 0; i < visible_entities.length; i++ )
 							ctx.globalAlpha = icons_opacity;
 
 							ctx.save();
-							ctx.translate( 5 + t * 35 + 30 / 2, 5 + 17 + 5 + 30 );
+							ctx.translate( 5 + t * 35 + 30 / 2, 20 + 17 + 5 + 30 );
 							sdWorld.my_entity._inventory[ i ].Draw( ctx, true );
 							if ( i === 1 && sdWorld.my_entity._inventory[ 10 ]) // Slot 1, draw akimbo weapon if player has one
 							{
@@ -2127,18 +2158,59 @@ for ( let i = 0; i < visible_entities.length; i++ )
 			{
 				
 			}
-			
-			
-			ctx.globalAlpha = 1;
-			
-			ctx.fillStyle = '#ff0000';
-			//ctx.fillRect( 7, 7, 296 * sdWorld.my_entity.hea / sdWorld.my_entity.hmax, 2 );
-			
-			ctx.textAlign = 'left';
-			ctx.fillStyle = '#ff0000';
-			ctx.fillText( T("Health") + ": " + Math.ceil( sdWorld.my_entity.hea ), 5 + 5 * scale, 17 );
 
-			ctx.fillStyle = '#77aaff';
+            const bar_width = 270 * scale;
+            const bar_height = 20 * scale;
+            // Health bar
+            sdRenderer.DrawUIBar( ctx, 64 - 10, 5, sdWorld.my_entity.hea, sdWorld.my_entity.hmax, '#ff0000', bar_width, bar_height, 'Health' );
+
+            // Armor bar
+            sdRenderer.DrawUIBar( ctx, 64 - 10, 5 + bar_height, sdWorld.my_entity.armor, sdWorld.my_entity.armor_max, '#77aaff', bar_width, bar_height, 'Armor ' );
+
+            // Matter
+            sdRenderer.DrawUIBar( ctx, 64 - 10 + bar_width - bar_width * 0.2 + bar_width * 0.5, 5, sdWorld.my_entity.matter, sdWorld.my_entity.matter_max, '#00ffff', bar_width, bar_height, 'Matter' );
+            
+            const score_bar_width = bar_width * 0.75;
+            // Level
+            let additive = 50;
+            for ( let i = 1; i < sdWorld.my_entity.build_tool_level; ++i )
+            additive *= 1.04;
+
+            const current_score = sdWorld.my_score;
+            const level_end = sdCharacter.score_to_level[ sdWorld.my_entity.build_tool_level ];
+            const prev_additive = additive / 1.04;
+            const level_start = level_end - prev_additive;
+            const progress = current_score - level_start;
+            const range = level_end - level_start;
+
+            sdRenderer.DrawUIBar(
+                ctx,
+                sdRenderer.screen_width - leaderboard_width - score_bar_width - 5,
+                5,
+                progress,
+                range,
+                '#ffff00',
+                score_bar_width,
+                bar_height,
+                `${T('Lvl')} ${sdWorld.my_entity.build_tool_level}`,
+                false
+            );
+            ctx.fillStyle = '#ffff00';
+			ctx.fillText( T("Score") + ": " + Math.floor( sdWorld.my_score ), sdRenderer.screen_width - leaderboard_width - score_bar_width - 7, 35 );
+            
+            if ( sdRenderer.display_coords )
+			{
+				ctx.fillStyle = '#ffffaa';
+				ctx.fillText("Coordinates: X = " + sdWorld.my_entity.x.toFixed( 0 ) + ", Y = " + sdWorld.my_entity.y.toFixed( 0 ), sdRenderer.screen_width - 120 * scale, sdRenderer.screen_height - 15 );
+			}
+            
+            //ctx, x, y, v1, v2, color = "#ff0000", width = 20, height = 3, name
+
+            ctx.textAlign = 'left';
+			//ctx.fillStyle = '#ff0000';
+			//ctx.fillText( T("Health")  + Math.ceil( sdWorld.my_entity.hea ), 5 + 5 * scale, 17 );
+
+			/*ctx.fillStyle = '#77aaff';
 			ctx.fillText( T("Armor") + ": " + Math.ceil( sdWorld.my_entity.armor ), 5 + 95 * scale, 17 );			
 
 			ctx.fillStyle = '#00ffff';
@@ -2154,7 +2226,7 @@ for ( let i = 0; i < visible_entities.length; i++ )
 			{
 				ctx.fillStyle = '#ffffaa';
 				ctx.fillText("Coordinates: X = " + sdWorld.my_entity.x.toFixed(0) + ", Y = " + sdWorld.my_entity.y.toFixed(0), 465 * scale, 17 );
-			}
+			}*/
 			
 			const gun = sdWorld.my_entity._inventory[ sdWorld.my_entity.gun_slot ];
 			
@@ -2182,7 +2254,7 @@ for ( let i = 0; i < visible_entities.length; i++ )
 			}
 			
 			ctx.save();
-			ctx.translate( 5 + 5 * scale, 80 );
+			ctx.translate( 15 * scale, 100 );
 			for ( let t = 0; t < sdTask.tasks.length; t++ )
 			{
 				let task = sdTask.tasks[ t ];
