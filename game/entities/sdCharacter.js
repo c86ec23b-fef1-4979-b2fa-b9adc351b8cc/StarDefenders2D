@@ -611,7 +611,19 @@ class sdCharacter extends sdEntity
 		sdCharacter.ignored_classes_when_not_holding_x = [ 'sdBullet', 'sdWorkbench', 'sdLifeBox', 'sdUpgradeStation', 'sdCaption', 'sdLandMine' ];
 
 		sdCharacter.max_level = 60;
-		
+        
+        sdCharacter.score_to_level = [];
+        let score_to_level = 0;
+        let additive = 50;
+
+        for ( let lvl = 0; lvl <= sdCharacter.max_level; ++lvl )
+        {
+            score_to_level += additive;
+            sdCharacter.score_to_level[ lvl ] = score_to_level;
+
+            additive *= 1.04;
+        }
+
 		sdCharacter.allow_alive_players_think = false; // Will be switching on/off depending on where from onThink was called (multiplayer players will have onThink logic delayed)
 		
 		sdCharacter.max_stand_on_elevation = 0.15; // 0.1 was not enough for case of walking on top of combiner-mounted crystals while occasionaly doing step-up logic
@@ -4977,14 +4989,7 @@ THING is cosmic mic drop!`;
 				this.hook_projectile_net_id = -1;
 			}
 		}
-		/*
-		if ( this._score >= this._score_to_level && this.build_tool_level < this._max_level )
-		{
-			this.build_tool_level++;
-			this._score_to_level_additive = this._score_to_level_additive * 1.04;
-			this._score_to_level = this._score_to_level + this._score_to_level_additive;
-		}*/
-																		
+
 		this.ManagePlayerFlashLight();
 		
 		this.ManagePlayerVehicleEntrance( GSPEED ); // Before fire logic, because Mouse1 will throw crystals and it needs to block attacks
