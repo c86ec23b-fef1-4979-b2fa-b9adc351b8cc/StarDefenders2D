@@ -11559,7 +11559,7 @@ class sdGunClass
                         const multi_classes = [ 'sdHover', 'sdLifeBox', 'sdCube', 'sdDrone', 'sdEnemyMech', 'sdSetrDestroyer', 'sdCouncilIncinerator', 'sdStalker', 'sdRotator' ];
                         if ( multi_classes.includes( target_entity.GetClass() ) )
                         {
-                            target_entity.DamageWithEffect( 450 * bullet._gun.extra[ sdGun.ID_DAMAGE_MULT ] ?? 1, bullet._owner );
+                            target_entity.DamageWithEffect( 500 * bullet._gun.extra[ sdGun.ID_DAMAGE_MULT ] ?? 1, bullet._owner );
                         } 
                     }
                 }
@@ -11599,7 +11599,7 @@ class sdGunClass
 			image: sdWorld.CreateImageFromFile( 'light_cannon' ),
 			sound: 'gun_the_ripper2',
 			sound_pitch: 0.75,
-			title: 'Light Cannon SD-314',
+			title: 'Light Cannon SD-240',
 			slot: 2,
 			reload_time: 4,
 			muzzle_x: 16,
@@ -11625,7 +11625,6 @@ class sdGunClass
             },
 			projectile_properties: { color: sdEffect.default_explosion_color, _damage: 100 },
 			projectile_properties_dynamic: ( gun )=>{ 
-				
 				let obj = { color: sdEffect.default_explosion_color, explosion_radius: 10, model: 'heavy_bullet' };
 				obj._knock_scale = 0.01 * 8 * gun.extra[ sdGun.ID_DAMAGE_MULT ];
 				obj._damage = gun.extra[ sdGun.ID_DAMAGE_VALUE ]; // Damage value is set onMade
