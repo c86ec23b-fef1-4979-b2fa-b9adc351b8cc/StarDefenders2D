@@ -1247,7 +1247,7 @@ class sdCrystal extends sdEntity
                             if ( entity !== e )
                             if ( entity.is( sdCrystal ) )
                             {
-                                sdCrystal.Zap( e, entity, '#aaddff' );
+                                sdCrystal.Zap( e, entity, '#62aee6' );
                                 entity.ApplyStatusEffect({ type: sdStatusEffect.TYPE_TIME_AMPLIFICATION, t: 30 * 120 });
                             }
                         }
