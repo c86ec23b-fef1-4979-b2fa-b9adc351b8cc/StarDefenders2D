@@ -939,7 +939,7 @@ class sdCrystal extends sdEntity
                             if ( entity.IsTargetable( e ) )
                             {
                                 sdCrystal.Zap( e, entity, '#ff8000' );
-                                entity.ApplyStatusEffect({ type: sdStatusEffect.TYPE_TEMPERATURE, target_value: 5000, remain_part: 0.8, GSPEED:GSPEED });
+                                entity.ApplyStatusEffect({ type: sdStatusEffect.TYPE_TEMPERATURE, t: 2500, initiator: e });
                             }
                         }
                     }
@@ -948,7 +948,7 @@ class sdCrystal extends sdEntity
 						e.speciality = 0;
 					}
 					else
-					e.ApplyStatusEffect({ type: sdStatusEffect.TYPE_TEMPERATURE, target_value:1000, remain_part: 0.8, GSPEED:GSPEED }); // 700-800 won't cause fire spreading // 1000 is not enough to burn stuff around on its own, but can burn stuff when couple of such crystals are there
+					e.ApplyStatusEffect({ type: sdStatusEffect.TYPE_TEMPERATURE, target_value: e.speciality === 2 ? 3000 : 1000, remain_part: 0.8, GSPEED:GSPEED }); // 700-800 won't cause fire spreading // 1000 is not enough to burn stuff around on its own, but can burn stuff when couple of such crystals are there
 				}
 			},
 			
