@@ -2189,8 +2189,8 @@ for ( let i = 0; i < visible_entities.length; i++ )
             const level_end = sdCharacter.score_to_level[ sdWorld.my_entity.build_tool_level ];
             const prev_additive = additive / 1.04;
             const level_start = level_end - prev_additive;
-            const progress = current_score - level_start;
-            const range = level_end - level_start;
+            const progress = sdWorld.my_entity.build_tool_level >= sdCharacter.max_level ? 1 : current_score - level_start;
+            const range = sdWorld.my_entity.build_tool_level >= sdCharacter.max_level ? 1 : level_end - level_start;
 
             sdRenderer.DrawUIBar(
                 ctx,
