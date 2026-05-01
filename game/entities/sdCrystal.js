@@ -1134,7 +1134,7 @@ class sdCrystal extends sdEntity
                     {
                         if ( Math.random() < 0.01 * GSPEED && !e.is_very_depleted )
                         {
-                            const range = Math.sqrt( Math.random() * 96 );
+                            const range = Math.random() * 96;
                             const angle = Math.random() * Math.PI * 2;
                             
                             const x = e.x + Math.cos( angle ) * range;
@@ -1165,8 +1165,9 @@ class sdCrystal extends sdEntity
             
             GetFilterAltering: ( e, ctx_filter )=>
 			{
+                console.log(ctx_filter)
                 if ( e.speciality === 2 )
-				return ctx_filter + 'saturate(1.3)hue-rotate(-50deg)drop-shadow(0px 0px 2px #00aaff)';
+				return 'hue-rotate(55deg)brightness(1.6)saturate(1.5)contrast(2)drop-shadow(0px 0px 2px #00aaff)drop-shadow(0px 0px 2px #00aaff)';
             
                 return ctx_filter;
 			},
