@@ -1077,6 +1077,14 @@ class sdCrystal extends sdEntity
                 else
                 e._hea = Math.min( e._hmax, e._hea + dmg * 0.8 ); // So falls won't break it
 			},
+            
+            ImpactAltering: ( e, vel )=>
+			{
+                if ( e.speciality === 2 )
+				vel = 0; // No fall damage
+
+				return vel;
+			},
 			
 			onThink: ( e, GSPEED )=>
 			{
