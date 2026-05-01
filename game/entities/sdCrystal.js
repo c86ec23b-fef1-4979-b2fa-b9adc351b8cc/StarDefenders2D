@@ -1219,7 +1219,7 @@ class sdCrystal extends sdEntity
                                         if ( new_t > 10 )
                                         e2.Say( [ 
                                             new_t_str + ' degrees. It is getting really cold there',
-                                            new_t_str + ' degrees. I hope I wont turn into an ice block',
+                                            new_t_str + ' degrees. I hope I won\'t turn into an ice block',
                                             new_t_str + ' degrees. I better run away now',
                                             new_t_str + ' degrees. I\'m very cold',
                                             new_t_str + ' degrees. I should better go to a warmer place',
@@ -1247,8 +1247,16 @@ class sdCrystal extends sdEntity
                             if ( entity !== e )
                             if ( entity.is( sdCrystal ) )
                             {
+                                const effects = sdStatusEffect.entity_to_status_effects.get( entity ) || [];
+                                for ( const effect of effects )
+                                {
+                                    if ( effect.type === sdStatusEffect.TYPE_TIME_AMPLIFICATION )
+                                    return; // Already has amp effect
+                                }
+
                                 sdCrystal.Zap( e, entity, '#55ccff' );
-                                entity.ApplyStatusEffect({ type: sdStatusEffect.TYPE_TIME_AMPLIFICATION, t: 30 * 120 });
+                                entity.ApplyStatusEffect({ type: sdStatusEffect.TYPE_TIME_AMPLIFICATION, t: 30 * 60 + ( Math.random() * 30 * 60 ) });
+                                sdSound.PlaySound({ name:'matter_charge_loop2', pitch: 4, x:e.x, y:e.y, volume: 0.5 });
                             }
                         }
                     }
