@@ -809,12 +809,21 @@ class sdRenderer
         ctx.textAlign = 'center';
         ctx.fillRect( x - ( name ? padding_name : 0 ), y, width + ( name ? padding_name : 0 ) + ( display_value ? padding_name / 2 : 0 ), height );
 
-        // bar
         const fill = sdWorld.limit( 0, 1, v1 / v2 );
 
+        ctx.globalAlpha = 0.3;
+        
+        // bar background
+        ctx.fillRect(
+            x + padding,
+            y + padding,
+            ( width - padding * 2 ),
+            height - padding * 2
+        );
+        
         ctx.globalAlpha = 0.8;
         ctx.fillStyle = color;
-
+        // bar
         ctx.fillRect(
             x + padding,
             y + padding,
@@ -2085,7 +2094,7 @@ for ( let i = 0; i < visible_entities.length; i++ )
 					{
 						ctx.globalAlpha = 0.15;
 						ctx.fillStyle = '#000000';
-						ctx.fillRect( 5 + t * 35, 5 + 17 + 5, 30, 17 );
+						ctx.fillRect( 5 + t * 35, 17 + 17 + 10, 30, 17 );
 					}
 				}
 			}
