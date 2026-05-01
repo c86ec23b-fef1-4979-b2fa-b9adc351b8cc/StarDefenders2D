@@ -2035,13 +2035,13 @@ for ( let i = 0; i < visible_entities.length; i++ )
 						}
 
 						ctx.fillStyle = '#000000';
-						ctx.fillRect( 5 + t * 35, 20 + 17 + 10, 30, 17 );
+						ctx.fillRect( 5 + t * 35, 17 + 17 + 10, 30, 17 );
 
 						ctx.globalAlpha = ( sdWorld.my_entity && i === sdWorld.my_entity.gun_slot ) ? 1 : 0.5;
 
 						ctx.fillStyle = '#ffffff';
 						ctx.textAlign = 'center';
-						ctx.fillText( i + '', 5 + t * 35 + 30 / 2, 20 + 17 + 10 + 12 );
+						ctx.fillText( i + '', 5 + t * 35 + 30 / 2, 17 + 17 + 10 + 12 );
 
 						if ( sdWorld.my_entity && i === sdWorld.my_entity.gun_slot )
 						{
@@ -2056,7 +2056,7 @@ for ( let i = 0; i < visible_entities.length; i++ )
 							ctx.globalAlpha = icons_opacity;
 
 							ctx.save();
-							ctx.translate( 5 + t * 35 + 30 / 2, 20 + 17 + 5 + 30 );
+							ctx.translate( 5 + t * 35 + 30 / 2, 17 + 17 + 5 + 30 );
 							sdWorld.my_entity._inventory[ i ].Draw( ctx, true );
 							if ( i === 1 && sdWorld.my_entity._inventory[ 10 ]) // Slot 1, draw akimbo weapon if player has one
 							{
@@ -2160,7 +2160,7 @@ for ( let i = 0; i < visible_entities.length; i++ )
 			}
 
             const bar_width = 270 * scale;
-            const bar_height = 20 * scale;
+            const bar_height = 17 * scale;
             // Health bar
             sdRenderer.DrawUIBar( ctx, 64 - 10, 5, sdWorld.my_entity.hea, sdWorld.my_entity.hmax, '#ff0000', bar_width, bar_height, 'Health' );
 
