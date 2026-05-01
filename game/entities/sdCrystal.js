@@ -1,4 +1,5 @@
 
+
 import sdWorld from '../sdWorld.js';
 import sdSound from '../sdSound.js';
 import sdEntity from './sdEntity.js';
@@ -1174,7 +1175,7 @@ class sdCrystal extends sdEntity
             GetFilterAltering: ( e, ctx_filter )=>
 			{
                 if ( e.speciality === 2 )
-				return 'hue-rotate(55deg)brightness(1.6)saturate(1.5)contrast(2)drop-shadow(0px 0px 2px #00aaff)drop-shadow(0px 0px 2px #00aaff)';
+				return 'hue-rotate(55deg)contrast(1.5)brightness(1.6)saturate(1.5)contrast(2)drop-shadow(0px 0px 2px #00aaff)drop-shadow(0px 0px 4px #00aaff)';
             
                 return ctx_filter;
 			},
@@ -1251,17 +1252,9 @@ class sdCrystal extends sdEntity
                         const ents = sdWorld.GetAnythingNear( e.x, e.y, 64 );
                         for ( const entity of ents )
                         {
-                            if ( Math.random() < 0.1 * GSPEED )
                             if ( entity !== e )
-                            if ( entity.is( sdCrystal ) )
+                            if ( entity.is( sdCrystal ) && entity._time_amplification === 0 )
                             {
-                                const effects = sdStatusEffect.entity_to_status_effects.get( entity ) || [];
-                                for ( const effect of effects )
-                                {
-                                    if ( effect.type === sdStatusEffect.TYPE_TIME_AMPLIFICATION )
-                                    return; // Already has amp effect
-                                }
-
                                 sdCrystal.Zap( e, entity, '#55ccff' );
                                 entity.ApplyStatusEffect({ type: sdStatusEffect.TYPE_TIME_AMPLIFICATION, t: 30 * 60 + ( Math.random() * 30 * 60 ) });
                                 sdSound.PlaySound({ name:'matter_charge_loop2', pitch: 4, x:e.x, y:e.y, volume: 0.5 });
