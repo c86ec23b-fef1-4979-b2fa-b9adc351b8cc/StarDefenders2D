@@ -1165,7 +1165,6 @@ class sdCrystal extends sdEntity
             
             GetFilterAltering: ( e, ctx_filter )=>
 			{
-                console.log(ctx_filter)
                 if ( e.speciality === 2 )
 				return 'hue-rotate(55deg)brightness(1.6)saturate(1.5)contrast(2)drop-shadow(0px 0px 2px #00aaff)drop-shadow(0px 0px 2px #00aaff)';
             
