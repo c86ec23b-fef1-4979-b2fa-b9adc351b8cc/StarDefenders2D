@@ -1142,7 +1142,7 @@ class sdCrystal extends sdEntity
                             
                             if ( e.CanMoveWithoutOverlap( x, y, 0 ) )
                             {
-                                e.sx = e.xy = 0;
+                                e.sx = e.sy = 0;
                                 e.x = x;
                                 e.y = y;
                                 e.PhysWakeUp();
