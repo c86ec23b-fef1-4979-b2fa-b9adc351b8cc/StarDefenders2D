@@ -131,7 +131,7 @@ class sdRenderer
             const rand = sdWorld.SeededRandomNumberGenerator.random( i, 100 );
             const rand2 = sdWorld.SeededRandomNumberGenerator.random( 100, i );
 
-            sdRenderer.star_pattern.push({ size: 1 + rand / 4, glow: rand < 0.1, color: rand2 < 0.02 ? '#0000ff': '#ffffff', angle: rand * Math.PI * 2, distance: Math.sqrt( rand2 * 750_000 ) });
+            sdRenderer.star_pattern.push({ size: 1 + rand / 4, glow: rand < 0.1, color: rand2 < 0.02 ? '#0000ff': '#ffffff', angle: rand * Math.PI * 2, distance: Math.sqrt( rand2 ) * 875 })
         }
 		sdWorld.SeededRandomNumberGenerator.seed = old_seed;
 		
