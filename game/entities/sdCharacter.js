@@ -7759,6 +7759,12 @@ THING is cosmic mic drop!`;
 
 							executer_socket.emit('SET sdWorld.my_entity', this._net_id, { reliable: true, runs: 100 } );
 
+                            if ( sdWorld.is_singleplayer )
+                            {
+                                sdWorld.my_entity_net_id = this._net_id;
+                                sdWorld.ResolveMyEntityByNetId();
+                            }
+
 							this.SetHiberState( sdEntity.HIBERSTATE_ACTIVE );
 						}
 					}
