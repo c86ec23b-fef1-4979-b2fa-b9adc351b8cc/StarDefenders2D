@@ -1257,6 +1257,9 @@ class sdBlock extends sdEntity
 	{
 		if ( !sdWorld.is_server )
 		return [];
+
+		if ( this._is_being_removed )
+		return [];
 	
 		if ( !this._merged )
 		return [];
