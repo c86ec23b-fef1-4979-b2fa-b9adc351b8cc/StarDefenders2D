@@ -116,7 +116,6 @@ class sdShop
 			sdShop.options.push({ _class: null, image: 'return', _category:'!root',  _opens_category:'root' });
 			
 			//
-
 			sdShop.options.push({ _class: 'sdBall', _category:'Other' });
 			sdShop.options.push({ _class: 'sdBall', type: 1, _category:'Other' });
 			sdShop.options.push({ _class: 'sdTheatre', _category:'Other' });
@@ -535,7 +534,7 @@ class sdShop
 			sdShop.options.push({ _class: 'sdBotFactory', _category:'Base equipment', _min_build_tool_level: 7  });
 			sdShop.options.push({ _class: 'sdBotCharger', _category:'Base equipment', _min_build_tool_level: 7  });
 
-			for ( var i = 0; i < 3; i++ )
+			for ( let i = 0; i < 3; i++ )
 			{
 				let filter = '';
 				if ( i === 1 )
@@ -546,12 +545,16 @@ class sdShop
 				sdShop.options.push({ _class: 'sdBG', width: 32, height: 16, filter: filter, _category:'Background walls' });
 				sdShop.options.push({ _class: 'sdBG', width: 16, height: 32, filter: filter, _category:'Background walls' });
 				sdShop.options.push({ _class: 'sdBG', width: 16, height: 16, filter: filter, _category:'Background walls' });
-
+            }
+            for ( let i = 0; i < 4; i++ )
+            {
 				let filter2 = '';
 				if ( i === 1 )
 				filter2 = 'hue-rotate(-60deg)brightness(.5)';
 				if ( i === 2 )
 				filter2 = 'hue-rotate(44deg)brightness(.8)';
+                if ( i === 3 )
+				filter2 = 'hue-rotate(140deg)brightness(.7)';
 
 				sdShop.options.push({ _class: 'sdBG', width: 32, height: 32, filter: filter2, texture_id: sdBG.TEXTURE_STRIPES, _category:'Background walls' });
 				sdShop.options.push({ _class: 'sdBG', width: 32, height: 16, filter: filter2, texture_id: sdBG.TEXTURE_STRIPES, _category:'Background walls' });
